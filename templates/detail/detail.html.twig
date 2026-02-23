@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tache.titre }}{% endblock %}
+
+{% block body %}
+    <div class="mb-4">
+        <a href="{{ path('app_tache') }}" class="btn btn-outline-secondary">
+             Retour à la liste
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header {% if tache.terminee %}bg-success text-white{% endif %}">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">
+                    {% if tache.terminee %}
+                        ✅ {{ tache.titre }}
+                    {% else %}
+                        📝 {{ tache.titre }}
+                    {% endif %}
+                </h2>
+                {% if not tache.terminee %}
+                    <a href="{{ path('app_tache_terminer', {'id': tache.id}) }}" 
+                       class="btn btn-sm btn-light">
+                        Marquer comme terminée
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="text-muted mb-3">
+                Créée le {{ tache.dateCreation|date('d/m/Y à H:i') }}
+            </p>
+            
+            {% if tache.description %}
+                <div class="mt-4">
+                    <h5>Description :</h5>
+                    <p class="lead">{{ tache.description }}</p>
+                </div>
+            {% else %}
+                <p class="text-muted fst-italic">Aucune description fournie.</p>
+            {% endif %}
+            
+            <div class="mt-4">
+                <strong>Statut :</strong>
+                {% if tache.terminee %}
+                    <span class="badge bg-success">Terminée</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">En cours</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
