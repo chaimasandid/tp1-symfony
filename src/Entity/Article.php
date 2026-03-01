@@ -117,7 +117,6 @@ class Article
         return $this;
     }
 
-    // CORRECTION ICI : Categorie avec majuscule
     public function getCategorie(): ?Categorie
     {
         return $this->categorie;
