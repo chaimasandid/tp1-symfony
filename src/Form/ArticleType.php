@@ -11,7 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Categorie;
 class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -39,6 +40,14 @@ class ArticleType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+            ->add('categorie', EntityType::class, [
+    'class' => Categorie::class,
+    'choice_label' => 'nom',
+    'label' => 'Catégorie',
+    'placeholder' => '-- Choisir une catégorie --',
+    'required' => false,
+    'attr' => ['class' => 'form-control'],
+])
             ->add('dateCreation', DateTimeType::class, [
                 'label' => 'Date de création',
                 'widget' => 'single_text',
